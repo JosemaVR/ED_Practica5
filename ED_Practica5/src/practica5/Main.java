@@ -6,5 +6,6 @@ public class Main {
 		Vista v = new Vista();
 		Modelo m = new Modelo();
 		new Controlador(m, v);
+		System.out.println("Iniciando el programa.");
 	}
 }

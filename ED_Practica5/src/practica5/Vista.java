@@ -2,6 +2,7 @@ package practica5;
 
 import java.awt.Button;
 import java.awt.Choice;
+import java.awt.Dialog;
 import java.awt.FlowLayout;
 import java.awt.Frame;
 import java.awt.Label;
@@ -32,7 +33,8 @@ public class Vista extends Frame{
 	Label lblSalario = new Label("Salario:");
 	Label lblComision= new Label("Comisión:");
 	Label lblHijos = new Label("Hijos:");
-	Label saltoDeLinea = new Label("\n");
+	Label lblIdEmpleado;
+	
 	TextField nombre = new TextField(20);
 	Choice departamento = new Choice();
 	TextField extension = new TextField(20);
@@ -52,24 +54,29 @@ public class Vista extends Frame{
 	
 	Button btnAceptarAlta = new Button("Aceptar");
 	Button btnAceptarBaja = new Button("Aceptar");
-	Button btnAceptarModificacion = new Button("Aceptar");
+	Button btnAceptarModificacion = new Button("Modificar empleado");
 	Button btnLimpiar = new Button("Limpiar");
+	Button btnEliminar = new Button("Borrar empleado");
+	Button btnElegir = new Button("Seleccionar empleado");
+	
 	Panel panelAltaLabel = new Panel(new FlowLayout());
 	Panel panelAltaText = new Panel(new FlowLayout());
 	Panel panelAltaBoton = new Panel(new FlowLayout());
 	Panel panelBaja = new Panel(new FlowLayout());
 	Panel panelConsulta = new Panel();
 	Panel panelModificacion = new Panel(new FlowLayout());
+	Panel panelElegirModificacion = new Panel(new FlowLayout());
+	Panel panelBotonModificacion = new Panel(new FlowLayout());
+	
 	TextArea consulta = new TextArea(20,42);
 	Choice choEmpleado = new Choice();
 	Choice choEmpleadoBaja = new Choice();
-	Button btnEliminar = new Button("Borrar empleado");
-	Button btnElegir = new Button("Seleccionar empleado");
- 	Button btnModificar = new Button("Modificar empleado");
-	Panel panelElegirModificacion = new Panel(new FlowLayout());
 	Choice departamentoModificacion = new Choice();
-	Panel panelBotonModificacion = new Panel(new FlowLayout());
-	Button btnLimpiarModificacion = new Button();
+	
+	Dialog dialogAlta = new Dialog(this, "Accediendo al servicio de Alta", true);
+	Dialog dialogBaja = new Dialog(this, "Accediendo al servicio de Baja", true);
+	Dialog dialogModificacion = new Dialog(this, "Accediendo al servicio de Modificacion", true);
+	Dialog dialogConsulta = new Dialog(this, "Accediendo al servicio de Consulta", true);
 	
 	public Vista() {
 		setTitle("Gestión de empleados");
@@ -157,10 +164,29 @@ public class Vista extends Frame{
 		
 		add(panelBotonModificacion);
 		panelBotonModificacion.setVisible(false);
-		panelBotonModificacion.add(btnModificar);
-		panelBotonModificacion.add(btnLimpiarModificacion);
+		panelBotonModificacion.add(btnAceptarModificacion);
 		panelBotonModificacion.setLocation(70,300);
 		panelBotonModificacion.setSize(200,100);
+
+		dialogAlta.setLayout(new FlowLayout());
+		dialogAlta.setSize(300,50);
+		dialogAlta.setLocationRelativeTo(null);
+		dialogAlta.setVisible(false);
+		
+		dialogBaja.setLayout(new FlowLayout());
+		dialogBaja.setSize(300,50);
+		dialogBaja.setLocationRelativeTo(null);
+		dialogBaja.setVisible(false);
+		
+		dialogConsulta.setLayout(new FlowLayout());
+		dialogConsulta.setSize(300,50);
+		dialogConsulta.setLocationRelativeTo(null);
+		dialogConsulta.setVisible(false);
+		
+		dialogModificacion.setLayout(new FlowLayout());
+		dialogModificacion.setSize(300,50);
+		dialogModificacion.setLocationRelativeTo(null);
+		dialogModificacion.setVisible(false);
 		
 		setMenuBar(barraMenu);
 		setSize(375,400);

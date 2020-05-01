@@ -191,6 +191,7 @@ public class Modelo {
 			TextField fechaNacimiento, TextField fechaIngreso, TextField salario,
 			TextField comision, TextField hijos)
 	{
+		//String id = idEmpleado(idEmpleado)
 		Connection con = conectar();
 		String sql = "SELECT * FROM empleados WHERE idEmpleado = "+ idEmpleado.getSelectedItem().substring(0, 3);
 		try 
@@ -222,5 +223,60 @@ public class Modelo {
 			System.out.println("ERROR: al hacer una modificacion");
 			ex.printStackTrace();
 		}
+	}
+
+	public void modificar(String departamento, String extension, String fechaNacimiento, 
+			String fechaIngreso, String salario, String comision, String hijos, String nombre, String idEmpleado) {
+		try {
+			int id = Integer.parseInt(idEmpleado);
+
+			//fechaNac = inputFormat.parse(txtFechaNacCliente.getText());
+			String fechaNac = outputFormat.format(inputFormat.parse(fechaNacimiento)).toString();
+			String fechaIng = outputFormat.format(inputFormat.parse(fechaIngreso)).toString();
+
+			// Conectar a la base de datos
+			Connection con = conectar();
+			// Ejecutar el UPDATE
+			String sql ="UPDATE empleados SET nombreEmpleado = '"+nombre+"', "
+					+ " extensionEmpleado = '"+extension+"', fechaNacimientoEmpleado = '"
+					+ fechaNac +"', fechaIngresoEmpleado = '"+fechaIng +"', "
+					+ "salarioEmpleado = '" + salario + "', comisionEmpleado = '"
+					+ comision + "' WHERE idEmpleado="+id;
+			try {
+				// CREAR UN STATEMENT PARA UNA CONSULTA SELECT
+				Statement stmt = con.createStatement();
+				stmt.executeUpdate(sql);
+				stmt.close();
+			} catch (SQLException ex) {
+				System.out.println("ERROR:al consultar");
+				ex.printStackTrace();
+			}
+			// Cerrar la conexión
+			desconectar(con);
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}		
+	}
+
+	public String idEmpleado(Choice choEmpleado) {
+		Connection con = conectar();
+		String sqlSelect = "SELECT idEmpleado FROM empleados WHERE idEmpleado = " + choEmpleado.getSelectedItem().substring(0, 3);
+		Integer id = 0;
+		try {
+			// CREAR UN STATEMENT PARA UNA CONSULTA SELECT
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(sqlSelect);
+			while (rs.next()) 
+			{
+				id = rs.getInt("idEmpleado");
+			}
+			rs.close();
+			stmt.close();
+		} catch (SQLException ex) {
+			System.out.println("ERROR: al consultar");
+			ex.printStackTrace();
+		}
+		return id.toString();
 	}
 }
